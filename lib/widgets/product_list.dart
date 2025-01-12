@@ -15,7 +15,15 @@ class _ProductListState extends State<ProductList> {
     borderRadius: BorderRadius.all(Radius.circular(20)),
   );
 
-  List<String> filter = const ["Adidas", "Nike", "Bata", "Puma", "Skechers"];
+  List<String> filter = const [
+    "All",
+    "Adidas",
+    "Nike",
+    "Bata",
+    "Puma",
+    "Skechers",
+  ];
+
   late String selectedFilter;
 
   @override
@@ -26,7 +34,6 @@ class _ProductListState extends State<ProductList> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -92,11 +99,15 @@ class _ProductListState extends State<ProductList> {
             ),
           ),
           Expanded(
-            child: size.width > 650
-                ? GridView.builder(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 1080) {
+                  return GridView.builder(
                     itemCount: products.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
+                      crossAxisCount: 2,
+                      childAspectRatio: 2,
+                    ),
                     itemBuilder: (context, index) {
                       final product = products[index];
                       return GestureDetector(
@@ -117,8 +128,9 @@ class _ProductListState extends State<ProductList> {
                         ),
                       );
                     },
-                  )
-                : ListView.builder(
+                  );
+                } else {
+                  return ListView.builder(
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final product = products[index];
@@ -140,7 +152,10 @@ class _ProductListState extends State<ProductList> {
                         ),
                       );
                     },
-                  ),
+                  );
+                }
+              },
+            ),
           )
         ],
       ),
