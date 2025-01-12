@@ -53,7 +53,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       appBar: AppBar(
         title: const Text(
           "Details",
-          // style: TextStyle(color: Colors.black),
         ),
       ),
       body: Center(
@@ -120,7 +119,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       onPressed: onTap,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        minimumSize: const Size(double.infinity, 50),
+                        fixedSize: const Size(300, 50),
                         foregroundColor: Colors.black,
                       ),
                       icon: const Icon(
